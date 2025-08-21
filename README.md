@@ -1,0 +1,94 @@
+# Bincom Election Results App
+
+A Node.js web application to display and manage election results for polling units and LGAs in Delta State, Nigeria.
+
+---
+
+## **Technologies Used**
+- Node.js
+- Express.js
+- MySQL
+- EJS (Embedded JavaScript templates)
+- Body-Parser
+- HTML/CSS (for frontend structure)
+
+---
+
+## **Project Structure**
+
+Bincom_Poll_Result_app/
+├─ server.js
+├─ package.json
+├─ config/
+│  └─ db.js
+├─ views/
+│  ├─ index.ejs
+│  ├─ polling_unit.ejs
+│  ├─ lga_result.ejs
+│  └─ addNew_result.ejs
+├─ public/
+│  └─ (optional CSS/JS files)
+
+
+---
+
+## **Features**
+
+### 1. Home Page
+- Route: `/`
+- Display a dropdown of all polling units.
+- Navigate to the polling unit result page on selection.
+
+### 2. Polling Unit Results (Question 1)
+- Route: `/polling-unit/:id`
+- Shows results of the selected polling unit.
+- Displays all parties and their scores.
+
+### 3. LGA Total Results (Question 2)
+- Route: `/lga` (form)  
+- Route: `/lga/:id` (display results)  
+- Displays summed results for all polling units under a selected LGA.
+- Only fetches data from `polling_unit` and `announced_pu_results` tables.
+
+### 4. Add New Polling Unit Results (Question 3)
+- Route: `/addNew-result` [GET] – displays the form.
+- Route: `/addNew-result` [POST] – handles form submission.
+- Form allows adding results for all parties for a new polling unit.
+- Success message displayed after adding a result.
+
+---
+
+## **Database Tables Used**
+- `polling_unit` – Polling unit names and IDs
+- `party` – Party names and IDs
+- `announced_pu_results` – Stores all polling unit results
+- `lga` – Local Government Areas (Delta State only)
+
+---
+
+## **Setup Instructions**
+1. Clone the project.
+2. Ensure MySQL is installed and running.
+3. Import the provided database SQL file.
+4. Update `config/db.js` with your MySQL credentials.
+5. Install dependencies:
+```bash
+npm install
+
+## To start the server:
+node server.js
+
+
+## Then open your browser and visit:
+http://localhost:3000
+
+
+Home Page (/)
+  │
+  ├─ Select Polling Unit → Polling Unit Result Page (/polling-unit/:id)
+  │
+  ├─ Go to LGA Results Page (/lga)
+  │      └─ Select LGA → LGA Total Result Page (/lga/:id)
+  │
+  └─ Go to Add New Result Page (/addNew-result)
+         └─ Fill form & submit → Confirmation message
